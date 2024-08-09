@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
@@ -16,15 +18,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView=findViewById(R.id.recyclerview);
         //value
-        String[] name={"Ram","Ram","Ram","Ram"};
-        String[] address={"HTD","HTD","HTD","HTD"};
+
+        ArrayList<MyData> data=new ArrayList<>();
+        data.add(new MyData("RAM","HTD"));
+
 
         //setting layout
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         //passing array
-        adapter=new RecyclerViewAdapter(this,name,address);
+        adapter=new RecyclerViewAdapter(this,data);
         recyclerView.setAdapter(adapter);
     }
 }

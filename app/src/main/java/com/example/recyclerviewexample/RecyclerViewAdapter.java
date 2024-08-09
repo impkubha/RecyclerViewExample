@@ -9,17 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+import java.util.ArrayList;
+
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     Activity context;
-    String[] name;
-    String[] address;
-    public RecyclerViewAdapter(Activity content, String[] name, String[] address){
-        this.name=name;
-        this.address=address;
+    ArrayList<MyData> data;
+    public RecyclerViewAdapter(Activity context,ArrayList<MyData> data){
+        this.data=data;
+        this.context=context;
     }
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater=LayoutInflater.from(context);
         View listItem= layoutInflater.inflate(R.layout.recyclerview_items,parent,false);
         ViewHolder viewHolder= new ViewHolder(listItem);
@@ -27,22 +28,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-        holder.txtAddress.setText(address[position]);
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        MyData current=data.get(position);
+        holder.txtName.setText(current.getName());
+        holder.txtAddress.setText(current.getAddress());
     }
 
     @Override
     public int getItemCount() {
-        return name.length;
+        return data.size();
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtName, txtAddress;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtName=itemView.findViewById(R.id.sName);
-            txtAddress=itemView.findViewById(R.id.sAddress);
+            txtName=itemView.findViewById(R.id.txtName);
+            txtAddress=itemView.findViewById(R.id.txtAddress);
         }
     }
 }
